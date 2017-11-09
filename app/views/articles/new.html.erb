@@ -1,0 +1,39 @@
+<%# When embedding ruby in hmtl, you must use the following tags/syntax to tell it so... %>
+<%# the articles underscore path syntax knows that it's referring to a url path  %>
+
+
+<%# This will throw errors for minimum length, etc. There are default error messages provided in the MODEL, 
+and you can replace them with your own messages to represent the errors %>
+<% if @article.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@article.errors.count, "error") %> prohibited
+        this article from being saved:
+      </h2>
+      <ul>
+        <% @article.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+<%# This generates the form: %>
+<%= form_with scope: :article, url: articles_path, local: true do |form| %>
+  <p>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+  </p>
+ 
+  <p>
+    <%= form.label :text %><br>
+    <%= form.text_area :text %>
+  </p>
+ 
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', articles_path%>
